@@ -111,4 +111,22 @@ B2-B3 -> Front Right
 
 ### Boards and testing
 
+- Raspberry and sensors board
+
+<img src="./Rover/images/sensorsboard.jpg"/>
+
+- Rocker bogie control board
+
 <img src="./Rover/images/rockerbogieboard.jpg"/>
+
+- Sensors and rocker bogie test
+
+<img src="./Rover/images/sensors_and_rockerbogie_test.jpg"/>
+
+- Arm and head control board
+
+<img src="./Rover/images/arm_and_head_board.jpg"/>
+
+- Full test
+
+<img src="./Rover/images/fulltest.jpg"/>
