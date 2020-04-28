@@ -1,5 +1,5 @@
 # Mars-Rover-Control-Software
-Control software for Jakkra's Mars Rover
+Control software for [Jakkra's Mars Rover](https://github.com/jakkra/Mars-Rover)
 
 This software has been tested and is meant to be run on a Raspberry Pi Zero W
 
