@@ -11,6 +11,7 @@ This is currently a work in progress
 /dev/serial0
 
 https://www.electroschematics.com/neo-6m-gps-module/
+https://gpsd.gitlab.io/gpsd/
 
 
 # I2C bus usage
