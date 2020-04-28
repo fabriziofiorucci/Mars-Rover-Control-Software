@@ -2,3 +2,4 @@ Mars-Rover-Control-Software
 Rover/bin
 Rover/log/rover.log
 Rover/sbin/sh.deploy
+Rover/target
