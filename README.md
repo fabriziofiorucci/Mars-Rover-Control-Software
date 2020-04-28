@@ -5,11 +5,12 @@ This software has been tested and is meant to be run on a Raspberry Pi Zero W
 
 This is currently a work in progress
 
-Some hardware details
 
-=> GPS 
+# u-blox NEO-6M GPS 
 
-/dev/serial0 -> NEO-6M GPS
+/dev/serial0
+
+https://www.electroschematics.com/neo-6m-gps-module/
 
 
 # I2C bus usage
