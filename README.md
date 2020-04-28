@@ -108,3 +108,7 @@ B2-B3 -> Front Right
 14 -
 15 -
 ```
+
+### Boards and testing
+
+<img src="./Rover/images/rockerbogieboard.jpg"/>
