@@ -1,17 +1,21 @@
 # Mars-Rover-Control-Software
 Control software for [Jakkra's Mars Rover](https://github.com/jakkra/Mars-Rover)
 
-This software has been tested and is meant to be run on a Raspberry Pi Zero W
+This software has been tested and is meant to be run on a Raspberry Pi Zero W under JVM 1.8
 
 This is currently a work in progress
 
 
+### Raspberry Zero WH
+
+- [Raspberry Zero WH](https://www.raspberrypi.org/blog/zero-wh/)
+
+
 ### u-blox NEO-6M GPS 
 
-/dev/serial0
-
-https://www.electroschematics.com/neo-6m-gps-module/
-https://gpsd.gitlab.io/gpsd/
+- [u-blox NEO-6M GPS](https://www.u-blox.com/en/product/neo-6-series)
+- connected to Raspberry PI's serial interface /dev/serial0
+- [gpsd — a GPS service daemon](https://gpsd.gitlab.io/gpsd/)
 
 
 ### I2C bus usage
@@ -36,11 +40,15 @@ root@rpi-rover:~# i2cdetect -y 1
 0x70 -> PCA9685 - all call
 ```
 
-### MPU6050 0x68 -> 6DOF IMU
-https://www.teachmemicro.com/beaglebone-black-mpu6050-i2c-tutorial-part-2/
+### MPU-6050 0x68 - 6DOF IMU
+
+- [MPU-6050 Six-Axis (Gyro + Accelerometer)](https://invensense.tdk.com/products/motion-tracking/6-axis/mpu-6050/)
+- [MPU-6050 Interfacing](https://www.teachmemicro.com/beaglebone-black-mpu6050-i2c-tutorial-part-2/)
 
 
-### MCP23017 0x20 -> wheels direction fwd/rev/stop
+### MCP23017 0x20 - wheels direction fwd/rev/stop
+
+- [16-Bit I/O Expander with Serial Interface](http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf)
 
 ```
                   GPA0-7    GPB0-7
@@ -58,7 +66,9 @@ B0-B1 -> Front Left
 B2-B3 -> Front Right
 ```
 
-### ADS1115 0x4b -> Channels - distance sensors
+### ADS1115 0x4b - 4x Channels - analog distance sensors
+
+- [Sharp GP2y0A21YK0F](https://global.sharp/products/device/lineup/data/pdf/datasheet/gp2y0a21yk_e.pdf)
 
 ```
 0 - rear left
@@ -67,7 +77,10 @@ B2-B3 -> Front Right
 3 - front right
 ```
 
-### PCA9685 0x40 -> wheels PWM / steering PWM (only PWM used, VCC+GND straight from DC/DC stepdown converter)
+### PCA9685 0x40 -> wheels PWM / steering PWM
+
+- [PCA9685: 16-channel, 12-bit PWM Fm+ I²C-bus LED controller](https://www.nxp.com/products/power-management/lighting-driver-and-controller-ics/ic-led-controllers/16-channel-12-bit-pwm-fm-plus-ic-bus-led-controller:PCA9685)
+- only PWM pins used, VCC+GND straight from DC/DC stepdown converter
 
 ```
 0 - Speed front left (PWM) -> to L298N
@@ -88,7 +101,10 @@ B2-B3 -> Front Right
 15 -
 ```
 
-### PCA9685 0x41 -> channels - arm PWM / camera PWM  (only PWM used, VCC+GND straight from DC/DC stepdown converter)
+### PCA9685 0x41 -> channels - arm PWM / camera PWM
+
+- [PCA9685: 16-channel, 12-bit PWM Fm+ I²C-bus LED controller](https://www.nxp.com/products/power-management/lighting-driver-and-controller-ics/ic-led-controllers/16-channel-12-bit-pwm-fm-plus-ic-bus-led-controller:PCA9685)
+- only PWM pins used, VCC+GND straight from DC/DC stepdown converter
 
 ```
 0 - Camera pan
