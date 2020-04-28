@@ -6,7 +6,7 @@ This software has been tested and is meant to be run on a Raspberry Pi Zero W
 This is currently a work in progress
 
 
-# u-blox NEO-6M GPS 
+### u-blox NEO-6M GPS 
 
 /dev/serial0
 
@@ -14,8 +14,9 @@ https://www.electroschematics.com/neo-6m-gps-module/
 https://gpsd.gitlab.io/gpsd/
 
 
-# I2C bus usage
+### I2C bus usage
 
+```
 root@rpi-rover:~# i2cdetect -y 1
      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
 00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
@@ -33,13 +34,13 @@ root@rpi-rover:~# i2cdetect -y 1
 0x4b -> ADS1115 - distance sensors (ADDR=SCL addr 1001011)
 0x68 -> MPU6050 - gyro/accelerometer
 0x70 -> PCA9685 - all call
+```
 
-
-# MPU6050 0x68 -> 6DOF IMU
+### MPU6050 0x68 -> 6DOF IMU
 https://www.teachmemicro.com/beaglebone-black-mpu6050-i2c-tutorial-part-2/
 
 
-# MCP23017 0x20 -> wheels direction fwd/rev/stop
+### MCP23017 0x20 -> wheels direction fwd/rev/stop
                   GPA0-7    GPB0-7
 reverse         : 01010101  00000101
 forward         : 10101010  00001010
@@ -54,14 +55,14 @@ A6-A7 -> Rear Right
 B0-B1 -> Front Left
 B2-B3 -> Front Right
 
-# ADS1115 0x4b -> Channels - distance sensors
+### ADS1115 0x4b -> Channels - distance sensors
 0 - rear left
 1 - rear right
 2 - front left
 3 - front right
 
 
-# PCA9685 0x40 -> wheels PWM / steering PWM (only PWM used, VCC+GND straight from DC/DC stepdown converter)
+### PCA9685 0x40 -> wheels PWM / steering PWM (only PWM used, VCC+GND straight from DC/DC stepdown converter)
 0 - Speed front left (PWM) -> to L298N
 1 - Speed front right (PWM) -> to L298N
 2 - Speed center left (PWM) -> to L298N
@@ -80,7 +81,7 @@ B2-B3 -> Front Right
 15 -
 
 
-# PCA9685 0x41 -> channels - arm PWM / camera PWM  (only PWM used, VCC+GND straight from DC/DC stepdown converter)
+### PCA9685 0x41 -> channels - arm PWM / camera PWM  (only PWM used, VCC+GND straight from DC/DC stepdown converter)
 0 - Camera pan
 1 - Camera tilt
 2 - arm base pan
