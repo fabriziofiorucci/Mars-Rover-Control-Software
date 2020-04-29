@@ -13,7 +13,7 @@ This is currently a work in progress
 - [X] Wheels and steering sw control functions
 - [ ] Arm control sw control functions
 - [ ] REST API for batch control
-- [ ] MQTT telemetry support
+- [X] MQTT telemetry support
 - [ ] LoRa radio assembly and test
 - [ ] LoRa sw control functions
 - [ ] Day/night vision camera assembly and test
