@@ -13,6 +13,7 @@ import com.pi4j.system.SystemInfo;
 import it.ff.Rover.Beans.TelemetryStatusBean;
 import it.ff.Rover.Hardware.IIC.IIC;
 import it.ff.Rover.Network.MQTT.MQTT;
+import it.ff.Rover.REST.RESTServer;
 import it.ff.Rover.Subsystem.Arm.ArmController;
 import it.ff.Rover.Subsystem.Arm.ArmControllerConstants;
 import it.ff.Rover.Subsystem.DistanceSensors.DistanceSensors;
@@ -25,6 +26,7 @@ public class Rover
 {
 	public static Logger logger = null;
 
+	public static RESTServer restServer = null;
 	public static MQTT mqtt = null;
 	public static IIC i2c = null;
 	public static GPSThread gpsThread = null;
@@ -347,8 +349,22 @@ public class Rover
 		}
 
 		// MQTT subscription to control topic
-		mqtt.subscribe(Configuration.get("mqtt_username")
-				+ Configuration.get("mqtt_control_topic"));
+		mqtt.subscribe(Configuration.get("mqtt_control_topic"));
+
+		// REST Server initialization
+		Rover.restServer = new RESTServer();
+		Rover.restServer.startServer();
+		Rover.logger.info("REST API Server started");
+		mqtt.publish(RoverConstants.MQTT_TELEMETRY_TOPIC_STATUS,
+				new TelemetryStatusBean("REST API Server started"), 2);
+		try
+		{
+			System.in.read();
+		} catch (IOException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		// I2C bus initialization
 		try

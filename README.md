@@ -5,6 +5,21 @@ This software has been tested and is meant to be run on a Raspberry Pi Zero W un
 
 This is currently a work in progress
 
+### Todo list
+
+- [X] Raspberry Pi Zero and sensors board assembly and test
+- [X] Rocker bogie control board assembly and test
+- [X] Arm and head control board assembly and test
+- [X] Wheels and steering sw control functions
+- [ ] Arm control sw control functions
+- [ ] REST API for batch control
+- [ ] MQTT telemetry support
+- [ ] LoRa radio assembly and test
+- [ ] LoRa sw control functions
+- [ ] Day/night vision camera assembly and test
+- [ ] Day/night vision camera sw control functions
+- [ ] Cabling management
+- [ ] ...
 
 ### Raspberry Zero WH
 
