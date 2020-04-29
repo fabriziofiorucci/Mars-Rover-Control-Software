@@ -10,13 +10,20 @@ This is currently a work in progress
 
 - [Raspberry Zero WH](https://www.raspberrypi.org/blog/zero-wh/)
 
-
 ### u-blox NEO-6M GPS 
 
 - [u-blox NEO-6M GPS](https://www.u-blox.com/en/product/neo-6-series)
 - connected to Raspberry PI's serial interface /dev/serial0
 - [gpsd — a GPS service daemon](https://gpsd.gitlab.io/gpsd/)
 
+### Motors
+
+- [Tower Pro MG996R servo motors](http://www.towerpro.com.tw/product/mg996r/)
+- [6v DC 35RPM motor](https://www.amazon.com/uxcell-Electric-1-1kg-cm-Loading-Torque/dp/B07F5X5S39/ref=sr_1_6?dchild=1&keywords=6v+dc+motor&qid=1588118804&sr=8-6)
+
+### DC/DC stepdown converters
+
+- [MP1584 3A, 1.5MHz, 28V Step-Down Converter](https://www.haoyuelectronics.com/Attachment/MP1584/MP1584.pdf)
 
 ### I2C bus usage
 
@@ -81,6 +88,7 @@ B2-B3 -> Front Right
 
 - [PCA9685: 16-channel, 12-bit PWM Fm+ I²C-bus LED controller](https://www.nxp.com/products/power-management/lighting-driver-and-controller-ics/ic-led-controllers/16-channel-12-bit-pwm-fm-plus-ic-bus-led-controller:PCA9685)
 - only PWM pins used, VCC+GND straight from DC/DC stepdown converter
+- [L298N Dual Motor Controller Module 2A](https://www.hackerstore.nl/pdfs/tutorial298.pdf)
 
 ```
 0 - Speed front left (PWM) -> to L298N
