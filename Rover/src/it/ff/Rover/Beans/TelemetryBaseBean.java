@@ -3,10 +3,13 @@ package it.ff.Rover.Beans;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.pi4j.system.SystemInfo;
 
 import it.ff.Rover.Rover;
 
+@XmlRootElement
 public class TelemetryBaseBean
 {
 	private LocalDateTime timestamp = null;

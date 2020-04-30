@@ -44,11 +44,6 @@ public class Configuration
 	 */
 	public static String get(String parameterName)
 	{
-		String parameterValue = properties.getProperty(parameterName);
-
-		Rover.logger.trace("Configuration parameter [" + parameterName + "] = ["
-				+ parameterValue + "]");
-
-		return parameterValue;
+		return properties.getProperty(parameterName);
 	}
 }

@@ -12,7 +12,7 @@ import com.pi4j.system.SystemInfo;
 
 import it.ff.Rover.Beans.TelemetryStatusBean;
 import it.ff.Rover.Hardware.IIC.IIC;
-import it.ff.Rover.Network.MQTT.MQTT;
+import it.ff.Rover.MQTT.MQTT;
 import it.ff.Rover.REST.RESTServer;
 import it.ff.Rover.Subsystem.Arm.ArmController;
 import it.ff.Rover.Subsystem.Arm.ArmControllerConstants;
@@ -352,11 +352,22 @@ public class Rover
 		mqtt.subscribe(Configuration.get("mqtt_control_topic"));
 
 		// REST Server initialization
-		Rover.restServer = new RESTServer();
-		Rover.restServer.startServer();
+		Rover.restServer = new RESTServer(Configuration.get("rest_base_uri"));
+		try
+		{
+			Rover.restServer.start();
+		} catch (IOException e)
+		{
+			Rover.logger.fatal("Exception: " + e.getMessage());
+			mqtt.publish(RoverConstants.MQTT_TELEMETRY_TOPIC_STATUS,
+					new TelemetryStatusBean("Can't start REST API Server"), 2);
+
+			return;
+		}
 		Rover.logger.info("REST API Server started");
 		mqtt.publish(RoverConstants.MQTT_TELEMETRY_TOPIC_STATUS,
 				new TelemetryStatusBean("REST API Server started"), 2);
+
 		try
 		{
 			System.in.read();
