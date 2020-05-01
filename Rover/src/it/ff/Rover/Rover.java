@@ -33,6 +33,8 @@ public class Rover
 	public static IMUThread imuThread = null;
 	public static DistanceSensors distanceSensors = null;
 
+	public static WheelsController wheelsController = null;
+
 	public static void main(String[] args) throws InterruptedException
 	{
 		init();
@@ -42,7 +44,7 @@ public class Rover
 		// Tests wheels steering, direction and arm
 		try
 		{
-			WheelsController wheelsController = new WheelsController(i2c,
+			wheelsController = new WheelsController(i2c,
 					Integer.decode(
 							Configuration.get("i2c_address_pca9685_wheels")),
 					Integer.decode(

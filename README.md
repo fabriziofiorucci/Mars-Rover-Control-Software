@@ -7,19 +7,30 @@ This is currently a work in progress
 
 ### Todo list
 
+Hardware
 - [X] Raspberry Pi Zero and sensors board assembly and test
 - [X] Rocker bogie control board assembly and test
 - [X] Arm and head control board assembly and test
-- [X] Wheels and steering sw control functions
-- [ ] Arm control sw control functions
-- [ ] REST API for batch control
+- [ ] LoRa board assembly and test
+- [ ] Camera assembly and test
+
+Base software
+- [X] Wheels and steering control
+- [ ] Arm control
+- [ ] Head control
 - [X] MQTT telemetry support
-- [ ] LoRa radio assembly and test
-- [ ] LoRa sw control functions
-- [ ] Day/night vision camera assembly and test
-- [ ] Day/night vision camera sw control functions
+- [ ] LoRa
+- [ ] Camera
+
+REST API
+- [X] Wheels and steering control
+- [ ] Arm control
+- [ ] Head control
+- [ ] Camera control
+
+Miscellaneous
 - [ ] Cabling management
-- [ ] ...
+
 
 ### Raspberry Zero WH
 

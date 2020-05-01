@@ -1,19 +1,22 @@
 package it.ff.Rover.Beans.REST;
 
+import javax.ws.rs.core.Response.Status;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.json.JSONObject;
 
 @XmlRootElement
 public class RESTRoverResponse
 {
-	private String status = null;
+	private Status status = Status.OK;
 	private String description = null;
 
-	public String getStatus()
+	public Status getStatus()
 	{
 		return status;
 	}
 
-	public void setStatus(String status)
+	public void setStatus(Status status)
 	{
 		this.status = status;
 	}
