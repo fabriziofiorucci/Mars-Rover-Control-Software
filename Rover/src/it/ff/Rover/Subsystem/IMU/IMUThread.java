@@ -5,7 +5,7 @@ import java.io.IOException;
 import it.ff.Rover.Configuration;
 import it.ff.Rover.Rover;
 import it.ff.Rover.RoverConstants;
-import it.ff.Rover.Beans.TelemetryIMUBean;
+import it.ff.Rover.Beans.Telemetry.TelemetryIMUBean;
 import it.ff.Rover.Hardware.IIC.IIC;
 import it.ff.Rover.Hardware.MPU6050.MPU6050;
 

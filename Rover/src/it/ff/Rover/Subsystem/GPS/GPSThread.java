@@ -3,7 +3,7 @@ package it.ff.Rover.Subsystem.GPS;
 import it.ff.Rover.Configuration;
 import it.ff.Rover.Rover;
 import it.ff.Rover.RoverConstants;
-import it.ff.Rover.Beans.TelemetryGPSBean;
+import it.ff.Rover.Beans.Telemetry.TelemetryGPSBean;
 import it.ff.Rover.Hardware.NEO6M.NEO6M;
 
 public class GPSThread implements Runnable

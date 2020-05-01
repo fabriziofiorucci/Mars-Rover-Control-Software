@@ -12,7 +12,7 @@ import com.pi4j.io.gpio.GpioPinAnalogInput;
 
 import it.ff.Rover.Rover;
 import it.ff.Rover.RoverConstants;
-import it.ff.Rover.Beans.TelemetryDistanceBean;
+import it.ff.Rover.Beans.Telemetry.TelemetryDistanceBean;
 import it.ff.Rover.Hardware.ADS1115.ADS1115;
 import it.ff.Rover.Hardware.IIC.IIC;
 

@@ -12,9 +12,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import org.codehaus.jettison.json.JSONObject;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import it.ff.Rover.Rover;
+import it.ff.Rover.Beans.REST.RESTRoverResponse;
 
 @Path("/1.0")
 public class RESTAPI1_0
@@ -32,16 +34,43 @@ public class RESTAPI1_0
 		return responseHeaders.entity(string).build();
 	}
 
+	/**
+	 * Sets driving and steering mode
+	 */
 	@POST
 	@Path("/drive")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response drive(JSONObject jsonObject)
+	public Response drive(String input)
 	{
-		Rover.logger.trace("REST drive [" + jsonObject.toString() + "]");
+		Rover.logger.trace("REST drive [" + input + "]");
+
+		JSONObject request = null;
+		RESTRoverResponse response = new RESTRoverResponse();
+
+		try
+		{
+			request = new JSONObject(input);
+
+			// Json check
+			if (request.has("drive") && request.has("steering"))
+			{
+				response.setStatus("done");
+				response.setDescription("Operation successful");
+			} else
+			{
+				response.setStatus("Invalid JSON");
+				response.setDescription("drive and steering must be specified");
+			}
+
+		} catch (JSONException e)
+		{
+			response.setStatus("Error");
+			response.setDescription(e.getMessage());
+		}
 
 		ResponseBuilder responseHeaders = responseHeaders(200);
-		return responseHeaders.entity("").build();
+		return responseHeaders.entity(response).build();
 	}
 
 	private ResponseBuilder responseHeaders(int status)

@@ -10,7 +10,7 @@ import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
 import com.pi4j.system.SystemInfo;
 
-import it.ff.Rover.Beans.TelemetryStatusBean;
+import it.ff.Rover.Beans.Telemetry.TelemetryStatusBean;
 import it.ff.Rover.Hardware.IIC.IIC;
 import it.ff.Rover.MQTT.MQTT;
 import it.ff.Rover.REST.RESTServer;
