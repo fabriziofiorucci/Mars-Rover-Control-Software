@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "779003e7-0e0e-46d5-85b2-c0d1bddff7e4",
+		"name": "Rover",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Drive forward 100% speed",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"forward\",\n\t\t\"speed\": \"100\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"none\",\n\t\t\"amount\": \"0\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{rover_rest}}/drive",
+					"host": [
+						"{{rover_rest}}"
+					],
+					"path": [
+						"drive"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Drive forward 50% turning left 20%",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"forward\",\n\t\t\"speed\": \"50\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"left\",\n\t\t\"amount\": \"20\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{rover_rest}}/drive",
+					"host": [
+						"{{rover_rest}}"
+					],
+					"path": [
+						"drive"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Drive stop",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"stop\",\n\t\t\"speed\": \"0\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"none\",\n\t\t\"amount\": \"0\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{rover_rest}}/drive",
+					"host": [
+						"{{rover_rest}}"
+					],
+					"path": [
+						"drive"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Drive reverse 20% turning right 10%",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"reverse\",\n\t\t\"speed\": \"20\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"right\",\n\t\t\"amount\": \"10\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{rover_rest}}/drive",
+					"host": [
+						"{{rover_rest}}"
+					],
+					"path": [
+						"drive"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "restpassword",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "restusername",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2d043415-f997-4e9e-abe1-592485e84a06",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a6a6c9a4-d020-44b7-9944-1223ee657153",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "7d76f937-d84a-4abf-85ff-6fb34226507b",
+			"key": "rover_rest",
+			"value": "http://127.0.0.1:8080/1.0",
+			"type": "string"
+		}
+	]
+}
