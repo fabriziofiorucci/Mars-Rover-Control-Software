@@ -73,17 +73,18 @@ public class GPSThread implements Runnable
 					neo6m.poll();
 					double latitude = neo6m.getLatitude();
 					double longitude = neo6m.getLongitude();
+					String timestamp = neo6m.getTimestamp();
 
 					Thread.sleep(Long
 							.parseLong(Configuration.get("gps_polling_time")));
 
-					Rover.logger.info(
-							"GPS lat[" + latitude + "] lon[" + longitude + "]");
+					Rover.logger.info("GPS lat[" + latitude + "] lon["
+							+ longitude + "] ts[" + timestamp + "]");
 
 					// Publishes GPS MQTT update
 					Rover.mqtt.publish(RoverConstants.MQTT_TELEMETRY_TOPIC_GPS,
 							new TelemetryGPSBean("GPS beacon", latitude,
-									longitude),
+									longitude, timestamp),
 							2);
 				}
 			} catch (InterruptedException e)

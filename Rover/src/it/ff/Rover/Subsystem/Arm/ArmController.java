@@ -237,6 +237,10 @@ public class ArmController
 	{
 		GpioController gpio = GpioFactory.getInstance();
 		GpioPinPwmOutput myOutputs[] = {
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_00,
+						"Head pan"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_01,
+						"Head tilt"),
 				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_02,
 						"Arm base"),
 				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_03,
@@ -248,7 +252,23 @@ public class ArmController
 				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_06,
 						"Arm wrist"),
 				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_07,
-						"Arm clamp") };
+						"Arm clamp"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_08,
+						"unused"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_09,
+						"unused"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_10,
+						"unused"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_11,
+						"unused"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_12,
+						"unused"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_13,
+						"unused"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_14,
+						"unused"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_15,
+						"unused") };
 
 		return myOutputs;
 	}

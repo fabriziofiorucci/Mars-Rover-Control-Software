@@ -8,7 +8,7 @@ This is currently a work in progress
 ### Todo list
 
 Hardware
-- [X] Raspberry Pi Zero and sensors board assembly and test
+- [X] Raspberry Pi Zero W and sensors board assembly and test
 - [X] Rocker bogie control board assembly and test
 - [X] Arm and head control board assembly and test
 - [ ] LoRa board assembly and test
@@ -117,16 +117,16 @@ B2-B3 -> Front Right
 - [L298N Dual Motor Controller Module 2A](https://www.hackerstore.nl/pdfs/tutorial298.pdf)
 
 ```
-0 - Speed front left (PWM) -> to L298N
-1 - Speed front right (PWM) -> to L298N
-2 - Speed center left (PWM) -> to L298N
+0 - Speed front left (PWM)   -> to L298N
+1 - Speed front right (PWM)  -> to L298N
+2 - Speed center left (PWM)  -> to L298N
 3 - Speed center right (PWM) -> to L298N
-4 - Speed rear left (PWM) -> to L298N
-5 - Speed rear right (PWM) -> to L298N
-6 - Steering rear left -> to MG996R
-7 - Steering front left -> to MG996R
-8 - Steering front right -> to MG996R
-9 - Steering rear right -> to MG996R
+4 - Speed rear left (PWM)    -> to L298N
+5 - Speed rear right (PWM)   -> to L298N
+6 - Steering rear left       -> to MG996R
+7 - Steering front left      -> to MG996R
+8 - Steering front right     -> to MG996R
+9 - Steering rear right      -> to MG996R
 10 -
 11 -
 12 -

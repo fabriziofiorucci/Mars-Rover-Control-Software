@@ -391,7 +391,19 @@ public class WheelsController
 				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_08,
 						"Steering Front Right"),
 				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_09,
-						"Steering Rear Right") };
+						"Steering Rear Right"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_10,
+						"unused"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_11,
+						"unused"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_12,
+						"unused"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_13,
+						"unused"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_14,
+						"unused"),
+				gpio.provisionPwmOutputPin(gpioProvider, PCA9685Pin.PWM_15,
+						"unused") };
 
 		return myOutputs;
 	}

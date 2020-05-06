@@ -14,26 +14,26 @@ public class ArmControllerConstants
 	public static final Pin ARM_PIN_CLAMP = PCA9685Pin.PWM_07;
 
 	// Arm positions
-	public static int ARM_BASE_MIN = 0;
+	public static int ARM_BASE_RIGHT = 0;
 	public static int ARM_BASE_MID = 0;
-	public static int ARM_BASE_MAX = 0;
+	public static int ARM_BASE_LEFT = 0;
 
-	public static int ARM_SHOULDER_MIN = 0;
+	public static int ARM_SHOULDER_UP = 0;
 	public static int ARM_SHOULDER_MID = 0;
-	public static int ARM_SHOULDER_MAX = 0;
+	public static int ARM_SHOULDER_DOWN = 0;
 
-	public static int ARM_ELBOW_MIN = 0;
+	public static int ARM_ELBOW_DOWN = 0;
 	public static int ARM_ELBOW_MID = 0;
-	public static int ARM_ELBOW_MAX = 0;
+	public static int ARM_ELBOW_UP = 0;
 
-	public static int ARM_HAND_MIN = 0;
+	public static int ARM_HAND_UP = 0;
 	public static int ARM_HAND_MID = 0;
-	public static int ARM_HAND_MAX = 0;
+	public static int ARM_HAND_DOWN = 0;
 
-	public static int ARM_WRIST_MIN = 0;
+	public static int ARM_WRIST_LEFT = 0;
 	public static int ARM_WRIST_MID = 0;
-	public static int ARM_WRIST_MAX = 0;
+	public static int ARM_WRIST_RIGHT = 0;
 
-	public static int ARM_CLAMP_MIN = 0;
-	public static int ARM_CLAMP_MAX = 0;
+	public static int ARM_CLAMP_CLOSED = 0;
+	public static int ARM_CLAMP_OPEN = 0;
 }

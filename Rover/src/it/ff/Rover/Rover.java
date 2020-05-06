@@ -44,14 +44,17 @@ public class Rover
 		// Tests wheels steering, direction and arm
 		try
 		{
-			wheelsController = new WheelsController(i2c,
-					Integer.decode(
-							Configuration.get("i2c_address_pca9685_wheels")),
-					Integer.decode(
-							Configuration.get("i2c_address_mcp23017_wheels")));
+			wheelsController = new WheelsController(i2c, Integer.parseInt(
+					Configuration.get("i2c_address_pca9685_wheels"), 16),
+					Integer.parseInt(
+							Configuration.get("i2c_address_mcp23017_wheels"),
+							16));
 
-			ArmController armController = new ArmController(i2c, Integer
-					.decode(Configuration.get("i2c_address_pca9685_arm")));
+			/*
+			 * ArmController armController = new ArmController(i2c,
+			 * Integer.parseInt( Configuration.get("i2c_address_pca9685_arm"),
+			 * 16));
+			 */
 
 			Scanner in = new Scanner(System.in);
 			String s = "";
@@ -70,7 +73,7 @@ public class Rover
 				{
 				case "off":
 					wheelsController.stop();
-					armController.stop();
+					// armController.stop();
 					break;
 				case "l":
 					System.out.println("- Amount 0-100");
@@ -120,7 +123,7 @@ public class Rover
 					break;
 
 				case "arm":
-					testArm(armController, in, i2c);
+					// testArm(armController, in, i2c);
 					break;
 
 				case "d":
@@ -137,7 +140,7 @@ public class Rover
 
 				case "quit":
 					wheelsController.stop();
-					armController.stop();
+					// armController.stop();
 					break;
 
 				default:
@@ -370,14 +373,10 @@ public class Rover
 		mqtt.publish(RoverConstants.MQTT_TELEMETRY_TOPIC_STATUS,
 				new TelemetryStatusBean("REST API Server started"), 2);
 
-		try
-		{
-			System.in.read();
-		} catch (IOException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		/*
+		 * try { System.in.read(); } catch (IOException e1) { // TODO
+		 * Auto-generated catch block e1.printStackTrace(); }
+		 */
 
 		// I2C bus initialization
 		try
@@ -424,8 +423,8 @@ public class Rover
 		// Starts IMU thread
 		try
 		{
-			imuThread = new IMUThread(i2c,
-					Integer.decode(Configuration.get("i2c_address_mpu6050")));
+			imuThread = new IMUThread(i2c, Integer
+					.parseInt(Configuration.get("i2c_address_mpu6050"), 16));
 			imuThread.start();
 		} catch (Exception e)
 		{
@@ -439,8 +438,11 @@ public class Rover
 		// Starts distance sensors polling
 		try
 		{
-			distanceSensors = new DistanceSensors(i2c, Integer.decode(
-					Configuration.get("i2c_address_ads1115_distancesensors")));
+			distanceSensors = new DistanceSensors(i2c,
+					Integer.parseInt(
+							Configuration
+									.get("i2c_address_ads1115_distancesensors"),
+							16));
 		} catch (IOException e)
 		{
 			Rover.logger.fatal("Exception: " + e.getMessage());
