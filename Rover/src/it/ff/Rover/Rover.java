@@ -58,6 +58,7 @@ public class Rover
 
 			Scanner in = new Scanner(System.in);
 			String s = "";
+			String s2 = "";
 
 			while (!s.startsWith("quit"))
 			{
@@ -78,15 +79,20 @@ public class Rover
 				case "l":
 					System.out.println("- Amount 0-100");
 					s = in.nextLine();
-					wheelsController.steerLeft(Integer.valueOf(s));
+					wheelsController.setSteerDirection(
+							WheelsControllerConstants.WHEELS_STEERING_LEFT,
+							Integer.valueOf(s));
 					break;
 				case "r":
 					System.out.println("- Amount 0-100");
 					s = in.nextLine();
-					wheelsController.steerRight(Integer.valueOf(s));
+					wheelsController.setSteerDirection(
+							WheelsControllerConstants.WHEELS_STEERING_RIGHT,
+							Integer.valueOf(s));
 					break;
 				case "n":
-					wheelsController.steerNeutral();
+					wheelsController.setSteerDirection(
+							WheelsControllerConstants.WHEELS_STEERING_NONE, 0);
 					break;
 				case "f":
 					System.out.println("- Speed 1-100");
@@ -105,6 +111,11 @@ public class Rover
 				case "c":
 					System.out.println("- Speed 1-100");
 					s = in.nextLine();
+					System.out.println("- Steering amount 1-100");
+					s2 = in.nextLine();
+					wheelsController.setSteerDirection(
+							WheelsControllerConstants.WHEELS_STEERING_CLOCKWISE,
+							Integer.valueOf(s2));
 					wheelsController.setWheelsSpeed(Integer.valueOf(s));
 					wheelsController.setWheelsDirection(
 							WheelsControllerConstants.WHEELS_DIRECTION_CLOCKWISE);
@@ -112,6 +123,11 @@ public class Rover
 				case "v":
 					System.out.println("- Speed 1-100");
 					s = in.nextLine();
+					System.out.println("- Steering amount 1-100");
+					s2 = in.nextLine();
+					wheelsController.setSteerDirection(
+							WheelsControllerConstants.WHEELS_STEERING_COUNTERCLOCKWISE,
+							Integer.valueOf(s2));
 					wheelsController.setWheelsSpeed(Integer.valueOf(s));
 					wheelsController.setWheelsDirection(
 							WheelsControllerConstants.WHEELS_DIRECTION_COUNTERCLOCKWISE);
@@ -346,7 +362,8 @@ public class Rover
 		mqtt = new MQTT(Configuration.get("mqtt_broker"),
 				Configuration.get("mqtt_clientid"),
 				Configuration.get("mqtt_username"),
-				Configuration.get("mqtt_password"));
+				Configuration.get("mqtt_password"),
+				Boolean.valueOf(Configuration.get("mqtt_enabled")));
 		if (!mqtt.connect())
 		{
 			Rover.logger.fatal("Can't connect to MQTT");

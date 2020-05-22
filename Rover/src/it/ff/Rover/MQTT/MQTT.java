@@ -17,16 +17,18 @@ public class MQTT implements MqttCallback
 	private String clientId = null;
 	private String username = null;
 	private String password = null;
+	private boolean mqttEnabled = true;
 
 	private MqttClient mqttClient = null;
 
 	public MQTT(String _brokerURL, String _clientId, String _username,
-			String _password)
+			String _password, boolean _mqttEnabled)
 	{
 		brokerURL = _brokerURL;
 		clientId = _clientId;
 		username = _username;
 		password = _password;
+		mqttEnabled = _mqttEnabled;
 	}
 
 	/**
@@ -36,6 +38,9 @@ public class MQTT implements MqttCallback
 	 */
 	public boolean connect()
 	{
+		if (!mqttEnabled)
+			return true;
+
 		if (brokerURL == null || clientId == null || username == null
 				|| password == null)
 			return false;
@@ -67,6 +72,9 @@ public class MQTT implements MqttCallback
 
 	public boolean isConnected()
 	{
+		if (!mqttEnabled)
+			return true;
+
 		return mqttClient == null ? false : mqttClient.isConnected();
 	}
 
@@ -77,6 +85,9 @@ public class MQTT implements MqttCallback
 	 */
 	public boolean disconnect()
 	{
+		if (!mqttEnabled)
+			return true;
+
 		if (!isConnected())
 			return false;
 
@@ -101,6 +112,9 @@ public class MQTT implements MqttCallback
 	 */
 	public boolean subscribe(String topic)
 	{
+		if (!mqttEnabled)
+			return true;
+
 		if (topic == null || !isConnected())
 			return false;
 
@@ -130,6 +144,9 @@ public class MQTT implements MqttCallback
 	 */
 	public boolean publish(String topic, String payload, int qos)
 	{
+		if (!mqttEnabled)
+			return true;
+
 		if (!isConnected())
 			return false;
 
@@ -161,6 +178,9 @@ public class MQTT implements MqttCallback
 	 */
 	public boolean publish(String topic, Object o, int qos)
 	{
+		if (!mqttEnabled)
+			return true;
+
 		if (!isConnected())
 			return false;
 
@@ -168,8 +188,8 @@ public class MQTT implements MqttCallback
 		{
 			String json = JSON.Serialize(o);
 
-			Rover.logger.trace("MQTT publishing to [" + topic + "] = [" + json
-					+ "] qos [" + qos + "]");
+			// Rover.logger.trace("MQTT publishing to [" + topic + "] = [" +
+			// json + "] qos [" + qos + "]");
 			mqttClient.publish(topic, json.getBytes(), qos, false);
 		} catch (MqttException e)
 		{
@@ -178,6 +198,16 @@ public class MQTT implements MqttCallback
 		}
 
 		return true;
+	}
+
+	public boolean isMqttEnabled()
+	{
+		return mqttEnabled;
+	}
+
+	public void setMqttEnabled(boolean mqttEnabled)
+	{
+		this.mqttEnabled = mqttEnabled;
 	}
 
 	@Override

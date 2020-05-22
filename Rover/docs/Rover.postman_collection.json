@@ -6,6 +6,313 @@
 	},
 	"item": [
 		{
+			"name": "Arm",
+			"item": [
+				{
+					"name": "Arm test",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n}"
+						},
+						"url": {
+							"raw": "{{rover_rest}}/arm",
+							"host": [
+								"{{rover_rest}}"
+							],
+							"path": [
+								"arm"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Drive",
+			"item": [
+				{
+					"name": "Drive forward 50% speed",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"forward\",\n\t\t\"speed\": \"50\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{rover_rest}}/drive",
+							"host": [
+								"{{rover_rest}}"
+							],
+							"path": [
+								"drive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drive reverse 50% speed",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"forward\",\n\t\t\"speed\": \"50\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{rover_rest}}/drive",
+							"host": [
+								"{{rover_rest}}"
+							],
+							"path": [
+								"drive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drive forward 50% turning left 20%",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"forward\",\n\t\t\"speed\": \"30\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"left\",\n\t\t\"amount\": \"20\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{rover_rest}}/drive",
+							"host": [
+								"{{rover_rest}}"
+							],
+							"path": [
+								"drive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drive stop",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"stop\",\n\t\t\"speed\": \"0\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"none\",\n\t\t\"amount\": \"0\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{rover_rest}}/drive",
+							"host": [
+								"{{rover_rest}}"
+							],
+							"path": [
+								"drive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drive reverse 20% turning right 10%",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"reverse\",\n\t\t\"speed\": \"20\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"right\",\n\t\t\"amount\": \"10\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{rover_rest}}/drive",
+							"host": [
+								"{{rover_rest}}"
+							],
+							"path": [
+								"drive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drive Clockwise/counterclockwise",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\t\n\t\"drive\": {\n\t\t\"mode\": \"counterclockwise\",\n\t\t\"speed\": \"50\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"counterclockwise\",\n\t\t\"amount\": \"70\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{rover_rest}}/drive",
+							"host": [
+								"{{rover_rest}}"
+							],
+							"path": [
+								"drive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drive cw 60% speed",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"clockwise\",\n\t\t\"speed\": \"50\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{rover_rest}}/drive",
+							"host": [
+								"{{rover_rest}}"
+							],
+							"path": [
+								"drive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Steer right 80%",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"steering\": {\n\t\t\"mode\": \"right\",\n\t\t\"amount\": \"80\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{rover_rest}}/drive",
+							"host": [
+								"{{rover_rest}}"
+							],
+							"path": [
+								"drive"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "REST API Test",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -37,237 +344,6 @@
 					"path": [
 						"test",
 						"rover"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Drive forward 100% speed",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"forward\",\n\t\t\"speed\": \"100\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"none\",\n\t\t\"amount\": \"0\"\n\t}\n}"
-				},
-				"url": {
-					"raw": "{{rover_rest}}/drive",
-					"host": [
-						"{{rover_rest}}"
-					],
-					"path": [
-						"drive"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Drive reverse 50% speed",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"reverse\",\n\t\t\"speed\": \"50\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"none\",\n\t\t\"amount\": \"0\"\n\t}\n}"
-				},
-				"url": {
-					"raw": "{{rover_rest}}/drive",
-					"host": [
-						"{{rover_rest}}"
-					],
-					"path": [
-						"drive"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Drive forward 50% turning left 20%",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"forward\",\n\t\t\"speed\": \"30\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"left\",\n\t\t\"amount\": \"20\"\n\t}\n}"
-				},
-				"url": {
-					"raw": "{{rover_rest}}/drive",
-					"host": [
-						"{{rover_rest}}"
-					],
-					"path": [
-						"drive"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Drive stop",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"stop\",\n\t\t\"speed\": \"0\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"none\",\n\t\t\"amount\": \"0\"\n\t}\n}"
-				},
-				"url": {
-					"raw": "{{rover_rest}}/drive",
-					"host": [
-						"{{rover_rest}}"
-					],
-					"path": [
-						"drive"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Drive reverse 20% turning right 10%",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"reverse\",\n\t\t\"speed\": \"20\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"right\",\n\t\t\"amount\": \"10\"\n\t}\n}"
-				},
-				"url": {
-					"raw": "{{rover_rest}}/drive",
-					"host": [
-						"{{rover_rest}}"
-					],
-					"path": [
-						"drive"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Steer left 80%",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"stop\",\n\t\t\"speed\": \"0\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"left\",\n\t\t\"amount\": \"80\"\n\t}\n}"
-				},
-				"url": {
-					"raw": "{{rover_rest}}/drive",
-					"host": [
-						"{{rover_rest}}"
-					],
-					"path": [
-						"drive"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Steer right 80%",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"drive\": {\n\t\t\"mode\": \"stop\",\n\t\t\"speed\": \"0\"\n\t},\n\t\"steering\": {\n\t\t\"mode\": \"right\",\n\t\t\"amount\": \"80\"\n\t}\n}"
-				},
-				"url": {
-					"raw": "{{rover_rest}}/drive",
-					"host": [
-						"{{rover_rest}}"
-					],
-					"path": [
-						"drive"
 					]
 				}
 			},
@@ -313,9 +389,9 @@
 	],
 	"variable": [
 		{
-			"id": "2749da53-167f-44ab-bb2a-94ba4714a463",
+			"id": "c4debbd3-3da8-4ada-a53e-67cbde3da00f",
 			"key": "rover_rest",
-			"value": "http://rpi-rover.at-technologies.it:8080/1.0",
+			"value": "http://192.168.1.7:8080/1.0",
 			"type": "string"
 		}
 	]

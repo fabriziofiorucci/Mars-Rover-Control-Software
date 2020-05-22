@@ -78,7 +78,7 @@ public class GPSThread implements Runnable
 					Thread.sleep(Long
 							.parseLong(Configuration.get("gps_polling_time")));
 
-					Rover.logger.info("GPS lat[" + latitude + "] lon["
+					Rover.logger.trace("GPS lat[" + latitude + "] lon["
 							+ longitude + "] ts[" + timestamp + "]");
 
 					// Publishes GPS MQTT update

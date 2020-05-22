@@ -102,7 +102,7 @@ public class NEO6M
 
 			try
 			{
-				Rover.logger.trace("GPS sending command[" + cmd + "]");
+				// Rover.logger.trace("GPS sending command[" + cmd + "]");
 				outToGPS.println(cmd);
 				outToGPS.flush();
 
@@ -112,7 +112,7 @@ public class NEO6M
 				{
 					String reply = inFromGPS.readLine();
 
-					Rover.logger.trace("GPS got reply[" + reply + "]");
+					// Rover.logger.trace("GPS got reply[" + reply + "]");
 
 					output += reply;
 				}
@@ -202,8 +202,8 @@ public class NEO6M
 			gpsLatitude = latitude;
 			gpsLongitude = longitude;
 
-			Rover.logger.debug("GPS time[" + gpsTimestamp + "] lat["
-					+ gpsLatitude + "] lon[" + gpsLongitude + "]");
+			// Rover.logger.trace("GPS time[" + gpsTimestamp + "] lat["
+			// + gpsLatitude + "] lon[" + gpsLongitude + "]");
 		}
 
 		return gpsData;

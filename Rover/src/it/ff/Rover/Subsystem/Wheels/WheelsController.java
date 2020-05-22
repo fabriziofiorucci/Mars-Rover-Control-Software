@@ -99,7 +99,7 @@ public class WheelsController
 				.getAddress()] = WheelsControllerConstants.STEER_CENTER_RR;
 
 		// Set steering to neutral
-		steerNeutral();
+		setSteerDirection(WheelsControllerConstants.WHEELS_STEERING_NONE, 0);
 
 		// Set wheels to stopped
 		setWheelsDirection(WheelsControllerConstants.WHEELS_DIRECTION_STOP);
@@ -114,24 +114,36 @@ public class WheelsController
 	}
 
 	/**
-	 * Steers left
+	 * Set steering direction
+	 * 
+	 * @param steerMode
+	 *            WheelsControllerConstants.WHEELS_STEERING_*
+	 * @param percentage
+	 *            the percentage amount of steering. This is ignored if steering
+	 *            is WheelsControllerConstants.WHEELS_STEERING_NONE
 	 */
-	public void steerLeft(float percentage)
+	public void setSteerDirection(int steerMode, int percentage)
 	{
-		steer(-WheelsControllerConstants.STEER_DELTA, percentage);
-	}
+		switch (steerMode)
+		{
+		case WheelsControllerConstants.WHEELS_STEERING_LEFT:
+			steer(-WheelsControllerConstants.STEER_DELTA, percentage);
+			break;
+		case WheelsControllerConstants.WHEELS_STEERING_RIGHT:
+			steer(WheelsControllerConstants.STEER_DELTA, percentage);
+			break;
+		case WheelsControllerConstants.WHEELS_STEERING_NONE:
+			steer(0, 100);
+			break;
 
-	/**
-	 * Steers right
-	 */
-	public void steerRight(float percentage)
-	{
-		steer(WheelsControllerConstants.STEER_DELTA, percentage);
-	}
+		case WheelsControllerConstants.WHEELS_STEERING_CLOCKWISE:
+		case WheelsControllerConstants.WHEELS_STEERING_COUNTERCLOCKWISE:
+			steerCWorCCW(WheelsControllerConstants.STEER_DELTA, percentage);
+			break;
 
-	public void steerNeutral()
-	{
-		steer(0, 100);
+		default:
+			break;
+		}
 	}
 
 	/**
@@ -155,6 +167,29 @@ public class WheelsController
 				WheelsControllerConstants.STEER_CENTER_FR + deltaSteer);
 		setPWM(WheelsControllerConstants.STEER_PIN_REAR_RIGHT,
 				WheelsControllerConstants.STEER_CENTER_RR - deltaSteer);
+	}
+
+	/**
+	 * Steers clockwise/counterclockwise based on delta
+	 */
+	private void steerCWorCCW(int delta, float percentage)
+	{
+		if (percentage < 0 || percentage > 100)
+			return;
+
+		int deltaSteer = (int) (delta * percentage / 100);
+
+		Rover.logger.trace("SteerCWorCCW [" + delta + "/" + percentage
+				+ "] => [" + deltaSteer + "]");
+
+		setPWM(WheelsControllerConstants.STEER_PIN_REAR_LEFT,
+				WheelsControllerConstants.STEER_CENTER_RL - deltaSteer);
+		setPWM(WheelsControllerConstants.STEER_PIN_FRONT_LEFT,
+				WheelsControllerConstants.STEER_CENTER_FL + deltaSteer);
+		setPWM(WheelsControllerConstants.STEER_PIN_FRONT_RIGHT,
+				WheelsControllerConstants.STEER_CENTER_FR - deltaSteer);
+		setPWM(WheelsControllerConstants.STEER_PIN_REAR_RIGHT,
+				WheelsControllerConstants.STEER_CENTER_RR + deltaSteer);
 	}
 
 	/**

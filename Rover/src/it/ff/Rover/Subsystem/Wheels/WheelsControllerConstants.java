@@ -1,4 +1,4 @@
-	package it.ff.Rover.Subsystem.Wheels;
+package it.ff.Rover.Subsystem.Wheels;
 
 import com.pi4j.gpio.extension.pca.PCA9685Pin;
 import com.pi4j.io.gpio.Pin;
@@ -25,4 +25,11 @@ public class WheelsControllerConstants
 	public static final int WHEELS_DIRECTION_REVERSE = 2;
 	public static final int WHEELS_DIRECTION_CLOCKWISE = 3;
 	public static final int WHEELS_DIRECTION_COUNTERCLOCKWISE = 4;
+
+	// Steering direction
+	public static final int WHEELS_STEERING_NONE = 0;
+	public static final int WHEELS_STEERING_LEFT = 1;
+	public static final int WHEELS_STEERING_RIGHT = 2;
+	public static final int WHEELS_STEERING_CLOCKWISE = 3;
+	public static final int WHEELS_STEERING_COUNTERCLOCKWISE = 4;
 }

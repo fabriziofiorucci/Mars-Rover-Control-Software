@@ -18,7 +18,7 @@ Base software
 - [X] Wheels and steering control
 - [ ] Arm control
 - [ ] Head control
-- [X] MQTT telemetry support
+- [X] MQTT telemetry support (GPS, IMU, Distance sensors)
 - [ ] LoRa
 - [ ] Camera
 
