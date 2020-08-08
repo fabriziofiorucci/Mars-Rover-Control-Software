@@ -15,7 +15,6 @@ import it.ff.Rover.Hardware.IIC.IIC;
 import it.ff.Rover.MQTT.MQTT;
 import it.ff.Rover.REST.RESTServer;
 import it.ff.Rover.Subsystem.Arm.ArmController;
-import it.ff.Rover.Subsystem.Arm.ArmControllerConstants;
 import it.ff.Rover.Subsystem.DistanceSensors.DistanceSensors;
 import it.ff.Rover.Subsystem.GPS.GPSThread;
 import it.ff.Rover.Subsystem.IMU.IMUThread;
@@ -184,7 +183,7 @@ public class Rover
 		{
 			System.out.println("Test arm:");
 			System.out.println(
-					"- (0)base (1)shoulder (2)elbow (3)hand (4)wrist (5)hand (6)clamp (q)uit");
+					"- (0)base (1)shoulder (2)elbow (3)hand (4)wrist (5)clamp (q)uit");
 			s = in.nextLine();
 
 			System.out.println("Percentage?");

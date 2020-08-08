@@ -175,19 +175,19 @@ public class ArmController
 		int midPwm = armServos[armServo].getMidPwm();
 		int maxPwm = armServos[armServo].getMaxPwm();
 
-		int pwm2set = 0;
+		double pwm2set = 0;
 
 		if (percentage == 50)
 			pwm2set = midPwm;
 		else if (percentage < 50)
 		{
-			pwm2set = minPwm + (midPwm - minPwm) * percentage / 50;
+			pwm2set = minPwm + (midPwm - minPwm) * percentage / 50d;
 		} else
 		{
-			pwm2set = midPwm + (maxPwm - midPwm) * (percentage - 50) / 50;
+			pwm2set = midPwm + (maxPwm - midPwm) * (percentage - 50d) / 50d;
 		}
 
-		setServo(armServos[armServo].getServoPin(), pwm2set);
+		setServo(armServos[armServo].getServoPin(), (int) pwm2set);
 
 		return true;
 	}
@@ -200,21 +200,29 @@ public class ArmController
 				+ "] current [" + currentPwmValue + "] to value[" + pwmValue
 				+ "]");
 
-		if (pwmValue != currentPwmValue)
+		if (currentPwmValue == 0)
 		{
-			if (pwmValue > currentPwmValue)
+			pca9685Controller.setPwm(pwmChannel, 0, pwmValue);
+		} else
+		{
+			if (pwmValue != currentPwmValue)
 			{
-				for (int i = currentPwmValue; i < pwmValue; i++)
+				if (pwmValue > currentPwmValue)
 				{
-					Rover.logger.trace("PWM [" + i + "]");
-					pca9685Controller.setPwm(pwmChannel, 0, i);
-				}
-			} else
-			{
-				for (int i = currentPwmValue; i > pwmValue; i--)
+					for (int i = currentPwmValue; i < pwmValue; i++)
+					{
+						Rover.logger.trace("PreviousPWM[" + currentPwmValue
+								+ "] => TargetPWM[" + i + "]");
+						pca9685Controller.setPwm(pwmChannel, 0, i);
+					}
+				} else
 				{
-					Rover.logger.trace("PWM [" + i + "]");
-					pca9685Controller.setPwm(pwmChannel, 0, i);
+					for (int i = currentPwmValue; i > pwmValue; i--)
+					{
+						Rover.logger.trace("PreviousPWM[" + currentPwmValue
+								+ "] => TargetPWM[" + i + "]");
+						pca9685Controller.setPwm(pwmChannel, 0, i);
+					}
 				}
 			}
 		}
