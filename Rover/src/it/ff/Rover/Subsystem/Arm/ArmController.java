@@ -57,6 +57,11 @@ public class ArmController
 	{
 		armServos = new ArmServoPWMBean[6];
 
+		for (int i = 0; i < armServos.length; i++)
+		{
+			armServos[i] = new ArmServoPWMBean();
+		}
+
 		armServos[ArmControllerConstants.ARM_SERVO_BASE]
 				.setServoPin(PCA9685Pin.PWM_02);
 		armServos[ArmControllerConstants.ARM_SERVO_BASE].setMinPwm(
