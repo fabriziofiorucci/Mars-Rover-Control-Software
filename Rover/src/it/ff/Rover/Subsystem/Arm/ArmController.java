@@ -20,6 +20,8 @@ public class ArmController
 
 	private GpioPinPwmOutput[] pwmOutputs = null;
 
+	private ArmServoPWMBean armServos[] = null;
+
 	private int[] armCurrentPWM;
 
 	public ArmController(IIC i2cbus, int pca9685_i2c_address) throws IOException
@@ -53,46 +55,61 @@ public class ArmController
 
 	public void init()
 	{
-		// Initializes variables from config file
-		ArmControllerConstants.ARM_BASE_MIN = Integer
-				.parseInt(Configuration.get("arm_base_min"));
-		ArmControllerConstants.ARM_BASE_MID = Integer
-				.parseInt(Configuration.get("arm_base_mid"));
-		ArmControllerConstants.ARM_BASE_MAX = Integer
-				.parseInt(Configuration.get("arm_base_max"));
+		armServos = new ArmServoPWMBean[6];
 
-		ArmControllerConstants.ARM_SHOULDER_MIN = Integer
-				.parseInt(Configuration.get("arm_shoulder_min"));
-		ArmControllerConstants.ARM_SHOULDER_MID = Integer
-				.parseInt(Configuration.get("arm_shoulder_mid"));
-		ArmControllerConstants.ARM_SHOULDER_MAX = Integer
-				.parseInt(Configuration.get("arm_shoulder_max"));
+		armServos[ArmControllerConstants.ARM_SERVO_BASE]
+				.setServoPin(PCA9685Pin.PWM_02);
+		armServos[ArmControllerConstants.ARM_SERVO_BASE].setMinPwm(
+				Integer.parseInt(Configuration.get("arm_base_right")));
+		armServos[ArmControllerConstants.ARM_SERVO_BASE]
+				.setMidPwm(Integer.parseInt(Configuration.get("arm_base_mid")));
+		armServos[ArmControllerConstants.ARM_SERVO_BASE].setMaxPwm(
+				Integer.parseInt(Configuration.get("arm_base_left")));
 
-		ArmControllerConstants.ARM_ELBOW_MIN = Integer
-				.parseInt(Configuration.get("arm_elbow_min"));
-		ArmControllerConstants.ARM_ELBOW_MID = Integer
-				.parseInt(Configuration.get("arm_elbow_mid"));
-		ArmControllerConstants.ARM_ELBOW_MAX = Integer
-				.parseInt(Configuration.get("arm_elbow_max"));
+		armServos[ArmControllerConstants.ARM_SERVO_SHOULDER]
+				.setServoPin(PCA9685Pin.PWM_03);
+		armServos[ArmControllerConstants.ARM_SERVO_SHOULDER].setMinPwm(
+				Integer.parseInt(Configuration.get("arm_shoulder_up")));
+		armServos[ArmControllerConstants.ARM_SERVO_SHOULDER].setMidPwm(
+				Integer.parseInt(Configuration.get("arm_shoulder_mid")));
+		armServos[ArmControllerConstants.ARM_SERVO_SHOULDER].setMaxPwm(
+				Integer.parseInt(Configuration.get("arm_shoulder_down")));
 
-		ArmControllerConstants.ARM_HAND_MIN = Integer
-				.parseInt(Configuration.get("arm_hand_min"));
-		ArmControllerConstants.ARM_HAND_MID = Integer
-				.parseInt(Configuration.get("arm_hand_mid"));
-		ArmControllerConstants.ARM_HAND_MAX = Integer
-				.parseInt(Configuration.get("arm_hand_max"));
+		armServos[ArmControllerConstants.ARM_SERVO_ELBOW]
+				.setServoPin(PCA9685Pin.PWM_04);
+		armServos[ArmControllerConstants.ARM_SERVO_ELBOW].setMinPwm(
+				Integer.parseInt(Configuration.get("arm_elbow_down")));
+		armServos[ArmControllerConstants.ARM_SERVO_ELBOW].setMidPwm(
+				Integer.parseInt(Configuration.get("arm_elbow_mid")));
+		armServos[ArmControllerConstants.ARM_SERVO_ELBOW]
+				.setMaxPwm(Integer.parseInt(Configuration.get("arm_elbow_up")));
 
-		ArmControllerConstants.ARM_WRIST_MIN = Integer
-				.parseInt(Configuration.get("arm_wrist_min"));
-		ArmControllerConstants.ARM_WRIST_MID = Integer
-				.parseInt(Configuration.get("arm_wrist_mid"));
-		ArmControllerConstants.ARM_WRIST_MAX = Integer
-				.parseInt(Configuration.get("arm_wrist_max"));
+		armServos[ArmControllerConstants.ARM_SERVO_HAND]
+				.setServoPin(PCA9685Pin.PWM_05);
+		armServos[ArmControllerConstants.ARM_SERVO_HAND]
+				.setMinPwm(Integer.parseInt(Configuration.get("arm_hand_up")));
+		armServos[ArmControllerConstants.ARM_SERVO_HAND]
+				.setMidPwm(Integer.parseInt(Configuration.get("arm_hand_mid")));
+		armServos[ArmControllerConstants.ARM_SERVO_HAND].setMaxPwm(
+				Integer.parseInt(Configuration.get("arm_hand_down")));
 
-		ArmControllerConstants.ARM_CLAMP_MIN = Integer
-				.parseInt(Configuration.get("arm_claw_min"));
-		ArmControllerConstants.ARM_CLAMP_MAX = Integer
-				.parseInt(Configuration.get("arm_claw_max"));
+		armServos[ArmControllerConstants.ARM_SERVO_WRIST]
+				.setServoPin(PCA9685Pin.PWM_06);
+		armServos[ArmControllerConstants.ARM_SERVO_WRIST].setMinPwm(
+				Integer.parseInt(Configuration.get("arm_wrist_left")));
+		armServos[ArmControllerConstants.ARM_SERVO_WRIST].setMidPwm(
+				Integer.parseInt(Configuration.get("arm_wrist_mid")));
+		armServos[ArmControllerConstants.ARM_SERVO_WRIST].setMaxPwm(
+				Integer.parseInt(Configuration.get("arm_wrist_right")));
+
+		armServos[ArmControllerConstants.ARM_SERVO_CLAMP]
+				.setServoPin(PCA9685Pin.PWM_07);
+		armServos[ArmControllerConstants.ARM_SERVO_CLAMP].setMinPwm(
+				Integer.parseInt(Configuration.get("arm_clamp_closed")));
+		armServos[ArmControllerConstants.ARM_SERVO_CLAMP].setMidPwm(
+				Integer.parseInt(Configuration.get("arm_clamp_mid")));
+		armServos[ArmControllerConstants.ARM_SERVO_CLAMP].setMaxPwm(
+				Integer.parseInt(Configuration.get("arm_clamp_open")));
 
 		// Set all pwm off
 		setAllPWMOff();
@@ -112,18 +129,7 @@ public class ArmController
 
 	public void setArmAtRest()
 	{
-		setPosition(ArmControllerConstants.ARM_PIN_BASE,
-				ArmControllerConstants.ARM_BASE_MIN);
-		setPosition(ArmControllerConstants.ARM_PIN_SHOULDER,
-				ArmControllerConstants.ARM_SHOULDER_MID);
-		setPosition(ArmControllerConstants.ARM_PIN_ELBOW,
-				ArmControllerConstants.ARM_ELBOW_MAX);
-		setPosition(ArmControllerConstants.ARM_PIN_HAND,
-				ArmControllerConstants.ARM_HAND_MAX);
-		setPosition(ArmControllerConstants.ARM_PIN_WRIST,
-				ArmControllerConstants.ARM_WRIST_MID);
-		setPosition(ArmControllerConstants.ARM_PIN_HAND,
-				ArmControllerConstants.ARM_CLAMP_MIN);
+		// setPosition(ArmControllerConstants.ARM_PIN_BASE,ArmControllerConstants.ARM_BASE_MIN);
 	}
 
 	/**
@@ -155,7 +161,33 @@ public class ArmController
 		return (int) newValue;
 	}
 
-	public void setPosition(Pin pwmChannel, int pwmValue)
+	public boolean setPosition(int armServo, int percentage)
+	{
+		if (percentage < 0 || percentage > 100)
+			return false;
+
+		int minPwm = armServos[armServo].getMinPwm();
+		int midPwm = armServos[armServo].getMidPwm();
+		int maxPwm = armServos[armServo].getMaxPwm();
+
+		int pwm2set = 0;
+
+		if (percentage == 50)
+			pwm2set = midPwm;
+		else if (percentage < 50)
+		{
+			pwm2set = minPwm + (midPwm - minPwm) * percentage / 50;
+		} else
+		{
+			pwm2set = midPwm + (maxPwm - midPwm) * (percentage - 50) / 50;
+		}
+
+		setServo(armServos[armServo].getServoPin(), pwm2set);
+
+		return true;
+	}
+
+	private void setServo(Pin pwmChannel, int pwmValue)
 	{
 		int currentPwmValue = armCurrentPWM[pwmChannel.getAddress()];
 
@@ -187,22 +219,18 @@ public class ArmController
 
 	private void setAllPWMOff()
 	{
-		pca9685Controller.setAlwaysOff(PCA9685Pin.PWM_02);
-		pca9685Controller.setAlwaysOff(PCA9685Pin.PWM_03);
-		pca9685Controller.setAlwaysOff(PCA9685Pin.PWM_04);
-		pca9685Controller.setAlwaysOff(PCA9685Pin.PWM_05);
-		pca9685Controller.setAlwaysOff(PCA9685Pin.PWM_06);
-		pca9685Controller.setAlwaysOff(PCA9685Pin.PWM_07);
+		for (int i = 0; i < armServos.length; i++)
+		{
+			pca9685Controller.setAlwaysOff(armServos[i].getServoPin());
+		}
 	}
 
 	private void setAllPWMOn()
 	{
-		pca9685Controller.setAlwaysOn(PCA9685Pin.PWM_02);
-		pca9685Controller.setAlwaysOn(PCA9685Pin.PWM_03);
-		pca9685Controller.setAlwaysOn(PCA9685Pin.PWM_04);
-		pca9685Controller.setAlwaysOn(PCA9685Pin.PWM_05);
-		pca9685Controller.setAlwaysOn(PCA9685Pin.PWM_06);
-		pca9685Controller.setAlwaysOn(PCA9685Pin.PWM_07);
+		for (int i = 0; i < armServos.length; i++)
+		{
+			pca9685Controller.setAlwaysOn(armServos[i].getServoPin());
+		}
 	}
 
 	public void dump()

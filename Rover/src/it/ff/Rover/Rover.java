@@ -34,6 +34,7 @@ public class Rover
 	public static DistanceSensors distanceSensors = null;
 
 	public static WheelsController wheelsController = null;
+	public static ArmController armController = null;
 
 	public static void main(String[] args) throws InterruptedException
 	{
@@ -50,11 +51,8 @@ public class Rover
 							Configuration.get("i2c_address_mcp23017_wheels"),
 							16));
 
-			/*
-			 * ArmController armController = new ArmController(i2c,
-			 * Integer.parseInt( Configuration.get("i2c_address_pca9685_arm"),
-			 * 16));
-			 */
+			armController = new ArmController(i2c, Integer.parseInt(
+					Configuration.get("i2c_address_pca9685_arm"), 16));
 
 			Scanner in = new Scanner(System.in);
 			String s = "";
@@ -139,7 +137,7 @@ public class Rover
 					break;
 
 				case "arm":
-					// testArm(armController, in, i2c);
+					testArm(armController, in);
 					break;
 
 				case "d":
@@ -176,169 +174,23 @@ public class Rover
 		System.exit(0);
 	}
 
-	private static void testArm(ArmController armController, Scanner in,
-			IIC i2c) throws IOException
+	private static void testArm(ArmController armController, Scanner in)
+			throws IOException
 	{
 		String s = "";
+		String p = "";
 
 		while (!s.startsWith("q"))
 		{
 			System.out.println("Test arm:");
 			System.out.println(
-					"- (b)ase section(1) section(2) section(3) (w)rist (c)law (q)uit");
+					"- (0)base (1)shoulder (2)elbow (3)hand (4)wrist (5)hand (6)clamp (q)uit");
 			s = in.nextLine();
 
-			switch (s)
-			{
-			case "b":
-				System.out.println("(l)eft (c)enter (r)ight");
-				s = in.nextLine();
-				switch (s)
-				{
-				case "l":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_BASE,
-							ArmControllerConstants.ARM_BASE_MAX);
-					break;
-				case "c":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_BASE,
-							ArmControllerConstants.ARM_BASE_MID);
-					break;
-				case "r":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_BASE,
-							ArmControllerConstants.ARM_BASE_MIN);
-					break;
+			System.out.println("Percentage?");
+			p = in.nextLine();
 
-				default:
-					break;
-				}
-				break;
-			case "1":
-				System.out.println("(d)own (m)id (u)p");
-				s = in.nextLine();
-				switch (s)
-				{
-				case "d":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_SHOULDER,
-							ArmControllerConstants.ARM_SHOULDER_MIN);
-					break;
-				case "m":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_SHOULDER,
-							ArmControllerConstants.ARM_SHOULDER_MID);
-					break;
-				case "u":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_SHOULDER,
-							ArmControllerConstants.ARM_SHOULDER_MAX);
-					break;
-
-				default:
-					break;
-				}
-				break;
-			case "2":
-				System.out.println("(d)own (m)id (u)p");
-				s = in.nextLine();
-				switch (s)
-				{
-				case "d":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_ELBOW,
-							ArmControllerConstants.ARM_ELBOW_MIN);
-					break;
-				case "m":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_ELBOW,
-							ArmControllerConstants.ARM_ELBOW_MID);
-					break;
-				case "u":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_ELBOW,
-							ArmControllerConstants.ARM_ELBOW_MAX);
-					break;
-
-				default:
-					break;
-				}
-				break;
-			case "3":
-				System.out.println("(d)own (m)id (u)p");
-				s = in.nextLine();
-				switch (s)
-				{
-				case "d":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_HAND,
-							ArmControllerConstants.ARM_HAND_MIN);
-					break;
-				case "m":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_HAND,
-							ArmControllerConstants.ARM_HAND_MID);
-					break;
-				case "u":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_HAND,
-							ArmControllerConstants.ARM_HAND_MAX);
-					break;
-
-				default:
-					break;
-				}
-				break;
-			case "w":
-				System.out.println("(l)eft (c)enter (r)ight");
-				s = in.nextLine();
-				switch (s)
-				{
-				case "l":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_WRIST,
-							ArmControllerConstants.ARM_WRIST_MIN);
-					break;
-				case "c":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_WRIST,
-							ArmControllerConstants.ARM_WRIST_MID);
-					break;
-				case "r":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_WRIST,
-							ArmControllerConstants.ARM_WRIST_MAX);
-					break;
-
-				default:
-					break;
-				}
-				break;
-			case "c":
-				System.out.println("(o)pen (c)losed");
-				s = in.nextLine();
-				switch (s)
-				{
-				case "o":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_CLAMP,
-							ArmControllerConstants.ARM_CLAMP_MIN);
-					break;
-				case "c":
-					armController.setPosition(
-							ArmControllerConstants.ARM_PIN_CLAMP,
-							ArmControllerConstants.ARM_CLAMP_MAX);
-					break;
-
-				default:
-					break;
-				}
-				break;
-
-			default:
-				break;
-			}
+			armController.setPosition(Integer.valueOf(s), Integer.valueOf(p));
 		}
 	}
 
