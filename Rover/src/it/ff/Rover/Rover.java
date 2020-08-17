@@ -189,7 +189,7 @@ public class Rover
 			System.out.println("Percentage?");
 			p = in.nextLine();
 
-			armController.setPosition(Integer.valueOf(s), Integer.valueOf(p));
+			armController.setServo(Integer.valueOf(s), Integer.valueOf(p));
 		}
 	}
 

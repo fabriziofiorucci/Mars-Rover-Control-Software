@@ -22,8 +22,6 @@ public class ArmController
 
 	private ArmServoPWMBean armServos[] = null;
 
-	private int[] armCurrentPWM;
-
 	public ArmController(IIC i2cbus, int pca9685_i2c_address) throws IOException
 	{
 		// This would theoretically lead into a resolution of 5 microseconds per
@@ -119,12 +117,8 @@ public class ArmController
 		// Set all pwm off
 		setAllPWMOff();
 
-		armCurrentPWM = new int[16];
-
 		// Set arm to idle
 		setArmAtRest();
-
-		dumpCurrentPWM();
 	}
 
 	public void stop()
@@ -134,100 +128,62 @@ public class ArmController
 
 	public void setArmAtRest()
 	{
-		// setPosition(ArmControllerConstants.ARM_PIN_BASE,ArmControllerConstants.ARM_BASE_MIN);
+		armServos[ArmControllerConstants.ARM_SERVO_BASE].setCurPercentage(0);
+		armServos[ArmControllerConstants.ARM_SERVO_SHOULDER]
+				.setCurPercentage(70);
+		armServos[ArmControllerConstants.ARM_SERVO_ELBOW].setCurPercentage(0);
+		armServos[ArmControllerConstants.ARM_SERVO_HAND].setCurPercentage(0);
+		armServos[ArmControllerConstants.ARM_SERVO_WRIST].setCurPercentage(50);
+		armServos[ArmControllerConstants.ARM_SERVO_CLAMP].setCurPercentage(50);
 	}
 
-	/**
-	 * Returns the percentage amount of PWM value in the range between
-	 * currentValue and targetValue
-	 * 
-	 * @param currentValue
-	 *            the current PWM value
-	 * @param targetValue
-	 *            the target PWM value
-	 * @param percentage
-	 *            the requested PWM value percentage
-	 * @return
-	 */
-	private int getPercentagePWMvalue(int currentValue, int targetValue,
-			int percentage)
+	public void setServo(int pwmChannel, int percentage)
 	{
-		if (percentage < 0 || percentage > 100)
-			return currentValue;
+		int currentPwmValue = armServos[pwmChannel].getCurPwm();
+		int targetPwmValue = armServos[pwmChannel].setCurPercentage(percentage);
 
-		double deltaPWM = targetValue - currentValue;
-		double deltaValue = deltaPWM / 100 * percentage;
-		double newValue = currentValue + deltaValue;
-
-		Rover.logger.trace("PERCENTAGE: cur[" + currentValue + "] target["
-				+ targetValue + "] %[" + percentage + "] = delta[" + deltaValue
-				+ "] cur+delta[" + newValue + "/" + (int) newValue + "]");
-
-		return (int) newValue;
-	}
-
-	public boolean setPosition(int armServo, int percentage)
-	{
-		if (percentage < 0 || percentage > 100)
-			return false;
-
-		int minPwm = armServos[armServo].getMinPwm();
-		int midPwm = armServos[armServo].getMidPwm();
-		int maxPwm = armServos[armServo].getMaxPwm();
-
-		double pwm2set = 0;
-
-		if (percentage == 50)
-			pwm2set = midPwm;
-		else if (percentage < 50)
-		{
-			pwm2set = minPwm + (midPwm - minPwm) * percentage / 50d;
-		} else
-		{
-			pwm2set = midPwm + (maxPwm - midPwm) * (percentage - 50d) / 50d;
-		}
-
-		setServo(armServos[armServo].getServoPin(), (int) pwm2set);
-
-		return true;
-	}
-
-	private void setServo(Pin pwmChannel, int pwmValue)
-	{
-		int currentPwmValue = armCurrentPWM[pwmChannel.getAddress()];
-
-		Rover.logger.trace("Setting arm PWM channel[" + pwmChannel.getAddress()
-				+ "] current [" + currentPwmValue + "] to value[" + pwmValue
-				+ "]");
+		Rover.logger.trace("Setting arm PWM channel[" + pwmChannel
+				+ "] current [" + currentPwmValue + "] to value["
+				+ targetPwmValue + "]");
 
 		if (currentPwmValue == 0)
 		{
-			pca9685Controller.setPwm(pwmChannel, 0, pwmValue);
+			pca9685Controller.setPwm(armServos[pwmChannel].getServoPin(), 0,
+					targetPwmValue);
 		} else
 		{
-			if (pwmValue != currentPwmValue)
+			if (targetPwmValue != currentPwmValue)
 			{
-				if (pwmValue > currentPwmValue)
+				try
 				{
-					for (int i = currentPwmValue; i < pwmValue; i++)
+					if (targetPwmValue > currentPwmValue)
 					{
-						Rover.logger.trace("PreviousPWM[" + currentPwmValue
-								+ "] => TargetPWM[" + i + "]");
-						pca9685Controller.setPwm(pwmChannel, 0, i);
+						for (int i = currentPwmValue; i < targetPwmValue; i++)
+						{
+							Rover.logger.trace("PreviousPWM[" + currentPwmValue
+									+ "] => TargetPWM[" + i + "]");
+							pca9685Controller.setPwm(
+									armServos[pwmChannel].getServoPin(), 0, i);
+							Thread.sleep(20);
+						}
+					} else
+					{
+						for (int i = currentPwmValue; i > targetPwmValue; i--)
+						{
+							Rover.logger.trace("PreviousPWM[" + currentPwmValue
+									+ "] => TargetPWM[" + i + "]");
+							pca9685Controller.setPwm(
+									armServos[pwmChannel].getServoPin(), 0, i);
+
+							Thread.sleep(20);
+						}
 					}
-				} else
+				} catch (InterruptedException e)
 				{
-					for (int i = currentPwmValue; i > pwmValue; i--)
-					{
-						Rover.logger.trace("PreviousPWM[" + currentPwmValue
-								+ "] => TargetPWM[" + i + "]");
-						pca9685Controller.setPwm(pwmChannel, 0, i);
-					}
+					Rover.logger.error("Exception: " + e.getMessage());
 				}
 			}
 		}
-
-		armCurrentPWM[pwmChannel.getAddress()] = pwmValue;
 	}
 
 	private void setAllPWMOff()
@@ -249,7 +205,6 @@ public class ArmController
 	public void dump()
 	{
 		dumpPWMstatus();
-		dumpCurrentPWM();
 	}
 
 	private void dumpPWMstatus()
@@ -264,13 +219,6 @@ public class ArmController
 					+ output.getName() + "] on/off[" + onOffValues[0] + "/"
 					+ onOffValues[1] + "]");
 		}
-	}
-
-	private void dumpCurrentPWM()
-	{
-		for (int i = 0; i < 16; i++)
-			Rover.logger.trace(
-					"ARM PWM current [" + i + "] = [" + armCurrentPWM[i] + "]");
 	}
 
 	private GpioPinPwmOutput[] initPWMchannels(
