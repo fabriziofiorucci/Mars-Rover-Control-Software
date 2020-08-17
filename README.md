@@ -16,7 +16,7 @@ Hardware
 
 Base software
 - [X] Wheels and steering control
-- [ ] Arm control
+- [X] Arm control
 - [ ] Head control
 - [X] MQTT telemetry support (GPS, IMU, Distance sensors)
 - [ ] LoRa
