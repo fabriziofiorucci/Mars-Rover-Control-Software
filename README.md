@@ -6,7 +6,7 @@ This software has been tested and is meant to be run on a Raspberry Pi Zero W un
 This is currently a work in progress
 
 ### Todo list
-[r](Rover)
+
 Hardware
 - [X] Raspberry Pi Zero W and sensors board assembly and test
 - [X] Rocker bogie control board assembly and test
